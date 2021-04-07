@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Heart Rate Data</title>
+    <style>
+        .containerForChart {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+
+        }
+
+        .chart-container {
+            width: 40%;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin-bottom: 1%;
+        }.container{
+    margin: -10px -10px 20px -10px;
+    background:rgb(35, 119, 35);
+    color: white;
+    /* border: 100px solid black; */
+    padding: 1.5%;
+    text-align: center;
+    font-size: 200%;
+    font-weight: 800;
+    font-family: sans-serif;
+    animation: intro 10s cubic-bezier(0.01, 0.42, 0.58, 1);
+    letter-spacing: 5px;
+}
+        @media screen and (max-width: 640px){
+            .chart-container{
+                width: 90%;
+            }.container{
+            font-size: 150%;
+            font-weight: 600;
+            letter-spacing: 3px;
+            padding: 1.5%;}
+        }
+    </style>
+</head>
+<body style="margin: 8px;display: block">
+<div class="container">
+  <span>Heart Rate Chart</span>
+</div>
+
+
+<div class="containerForChart">
+    <div class="chart-container">
+        <canvas id="myChart1"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart2"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart3"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart4"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart5"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart6"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart7"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart8"></canvas>
+    </div>
+</div>
+<!--<canvas id="myChart"></canvas>-->
+<a href="http://127.0.0.1:5000/oxygenSaturation">
+    <button>Click For Oxygen Saturation</button>
+</a>
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+
+
+    var ctx1 = document.getElementById('myChart1').getContext('2d');
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var ctx3 = document.getElementById('myChart3').getContext('2d');
+    var ctx4 = document.getElementById('myChart4').getContext('2d');
+    var ctx5 = document.getElementById('myChart5').getContext('2d');
+    var ctx6 = document.getElementById('myChart6').getContext('2d');
+    var ctx7 = document.getElementById('myChart7').getContext('2d');
+    var ctx8 = document.getElementById('myChart8').getContext('2d');
+
+    var getData = $.get('/chartData');
+    getData.done(function (msg) {
+        // console.log(msg)
+        var results = msg["data"]
+        var myLineChart1 = new Chart(ctx1, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[0][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[0][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 1 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart2 = new Chart(ctx2, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[1][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[1][0]
+                },]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 2 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart3 = new Chart(ctx3, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[2][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[2][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 3 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart4 = new Chart(ctx4, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[3][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[3][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 4 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart5 = new Chart(ctx5, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[4][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[4][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 5 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart6 = new Chart(ctx6, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[5][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[5][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 6 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart7 = new Chart(ctx7, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[6][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[6][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 7 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+        var myLineChart8 = new Chart(ctx8, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: results[7][2],
+                datasets: [{
+                    label: 'Heart_Rate(BPM)',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(35, 119, 35)',
+                    data: results[7][0]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "BED: 8 ",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 120
+                            }
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // Configuration options go here
+
+        });
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+    background: white;
+}
+
+.box {
+  background-color: green;
+  color: #070707;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 150%;
+  width: 95%;
+    height: 10%;
+}
+
+	.wrapper {
+		width: 100%;
+		display: grid;
+    column-gap: .1%;
+		grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(2,50%);
+    margin-bottom: 2em;
+	}
+.ICUbox{
+        /*display: flex;*/
+        text-align: center;
+        border: 3px solid black;
+        /*width: 100%;*/
+        height: 4%;
+        padding: 10px;
+        background-color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        /*max-height:100px;*/
+        /*overflow-y:scroll;*/
+        letter-spacing: 8px;
+        font-size:20px;
+        font-weight: 900;
+        margin-bottom: 7px;
+        margin-top: 0;
+        color: white;
+
+}
+.quadrat {
+        color: #070707;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 150%;
+  width: 95%;
+  height: 10%;
+  -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: NAME-YOUR-ANIMATION 3s infinite;  /* IE 10+, Fx 29+ */
+}@-webkit-keyframes NAME-YOUR-ANIMATION {
+  0%, 9% {
+    background-color: #630606;
+  }
+  10%, 19% {
+    background-color: #7D1313;
+  }
+  20%, 29% {
+    background-color: #942424;
+  }
+  30%, 39% {
+    background-color: #B43C3C;
+  }
+  40%, 49% {
+    background-color: #CB5353;
+  }
+  50%, 59% {
+    background-color:#CB5353;
+  }
+  60%, 69% {
+    background-color: #B43C3C;
+  }
+  70%, 79% {
+    background-color: #942424;
+  }
+  80%, 89% {
+    background-color: #7D1313;
+  }
+  90%, 100% {
+    background-color: #630606;
+  }
+}

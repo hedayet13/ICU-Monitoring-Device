@@ -1,0 +1,330 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>
+    DashBoard
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" href="css/main.css">-->
+<style>
+body{
+    overflow: hidden;
+}.image{
+    width: 98%;
+    height: 85%;
+}
+.box {
+    background-color: #000000;
+    text-align: center;
+    padding: 7px 5px 7px 5px;
+    font-family: sans-serif;
+    width: 95%;
+    height: 10%;
+    margin-bottom: 2px;
+    font-size: 95%;
+  }.text1{
+    border: 1px solid #000000;
+    padding: 1px;
+    /* font-size: 120%; */
+    background-color: white;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: sans-serif;
+    border-radius: 10px;
+
+}.text2{
+    border: 2px solid #000000;
+    padding: 1px;
+    /* font-size: 120%; */
+    background-color: rgb(35, 119, 35);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: sans-serif;
+    border-radius: 10px;
+
+}.text3{
+    border: 2px solid #000000;
+    padding: 1px;
+    /* font-size: 120%; */
+    background-color: #8079;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: sans-serif;
+    border-radius: 10px;
+}.freeText1{
+    border: 1px solid #000000;
+    padding: 1px;
+    /* font-size: 120%; */
+    background-color: white;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: sans-serif;
+    border-radius: 10px;
+    float: left;
+      }.freeText2{
+        border: 2px solid #000000;
+    padding: 1px;
+    /* font-size: 120%; */
+    background-color: rgb(218, 49, 99);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: sans-serif;
+    border-radius: 10px;
+    float: right;
+
+             }
+.noData{
+
+      }.wrapper {
+          width: 100%;
+          display: grid;
+      column-gap: .1%;
+      row-gap: 2%;
+      grid-template-columns: repeat(5, 20%);
+      grid-template-rows: repeat(2,50%);
+      /*margin-bottom: 1em;*/
+      }
+.container{
+    margin: -10px -10px 20px -10px;
+    background:black;
+    color: white;
+    /* border: 100px solid black; */
+    padding: 1.5%;
+    text-align: center;
+    font-size: 200%;
+    font-weight: 800;
+    font-family: sans-serif;
+    animation: intro 1s cubic-bezier(0.01, 0.42, 0.58, 1);
+    letter-spacing: 5px;
+}.bottom{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    margin-left: 40%;
+     margin-top: 1%;
+
+}
+@keyframes intro{
+    0%{
+        padding: 29%;
+        font-size: 300%;
+        letter-spacing: 10px;
+        margin-bottom: 1000px;
+    }
+    30%{
+        padding: 29%;
+        font-size: 300%;
+        letter-spacing: 5px;
+        margin-bottom: 1000px;
+    }
+    50%{
+        padding: 1.5%;
+        font-size: 200%;
+        margin-bottom: 1000px;
+    }
+}
+@media screen and (max-width: 640px){
+    .image{
+        width: 100%;
+        height: 100%;
+    }
+    .wrapper {
+        /* align-items: center; */
+        width: 100%;
+        display: grid;
+        column-gap: .1%;
+        row-gap: 2%;
+        grid-template-columns: repeat(2, 50%);
+        grid-template-rows: repeat(2,20%);
+        margin-bottom: 10px;
+
+        }
+</style>
+
+
+<!--<script>-->
+<!--    setTimeout(function(){-->
+<!--        window.location.reload(1);-->
+<!--        }, 5000);-->
+<!--</script>-->
+
+{% endblock %}
+
+
+{% block body %}
+
+<!-- <h1 class="ICUbox">ICU monitoring</h1> -->
+<style>
+    .quadrat {
+        /* color: #070707; */
+
+    text-align: center;
+    padding: 7px 5px 7px 5px;
+    font-size: 120%;
+    font-family: sans-serif;
+    width: 95%;
+    height: 10%;
+    margin-bottom: 2px;
+        -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
+        -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
+        animation: NAME-YOUR-ANIMATION 3s infinite;  /* IE 10+, Fx 29+ */
+}@-webkit-keyframes NAME-YOUR-ANIMATION {
+    0%{background-color: red;}
+  50% {background-color: yellow;}
+  100% {background-color: red;}}
+</style>
+
+
+
+<div>
+<div class="container">
+  <span>ICU Monitoring</span>
+</div>
+<div class="wrapper">
+    <!-- Define all of the tiles: -->
+    {% for img in image %}
+      <div>
+          <div class="box" id="alert{{loop.index}}">
+          <span  id="beddata1{{loop.index}}"></span>
+          <span  id="beddata2{{loop.index}}"></span>
+          <span  id="beddata3{{loop.index}}"></span>
+          <span  id="beddata4{{loop.index}}"></span>
+          </div>
+          <img class="image" id="im{{loop.index}}" src="static/{{img}}?callback=1" alt="{{img}}">
+      </div>
+    {% endfor %}
+</div>
+</div>
+<div class="bottom">
+    <h4><img src="static\culogo.jpg" width="2%"> <br>Developed by-EEE,CU.</h4>
+  </div>
+
+<script>
+    setInterval(function(){
+      {% for i in range(1,11) %}
+          var sr{{i}}=document.getElementById("im{{i}}");
+          var imgSr{{i}}=sr{{i}}.src;
+          var rn{{i}}=Math.floor(Math.random()*1234312+1);
+          imgSr{{i}}=imgSr{{i}}.split("=")[0]+"="+rn{{i}}.toString();
+          sr{{i}}.src=imgSr{{i}};
+          {% endfor %}
+          }, 1000);
+          </script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>window.FontAwesomeKitConfig = { "asyncLoading": { "enabled": false }, "autoA11y": { "enabled": true }, "baseUrl": "https://kit-pro.fontawesome.com", "detectConflictsUntil": null, "license": "pro", "method": "js", "minify": { "enabled": true }, "v4FontFaceShim": { "enabled": true }, "v4shim": { "enabled": true }, "version": "latest" };
+!function () { function r(e) { var t, n = [], i = document, o = i.documentElement.doScroll, r = "DOMContentLoaded", a = (o ? /^loaded|^c/ : /^loaded|^i|^c/).test(i.readyState); a || i.addEventListener(r, t = function () { for (i.removeEventListener(r, t), a = 1; t = n.shift();)t() }), a ? setTimeout(e, 0) : n.push(e) } !function () { if (!(void 0 === window.Element || "classList" in document.documentElement)) { var e, t, n, i = Array.prototype, o = i.push, r = i.splice, a = i.join; d.prototype = { add: function (e) { this.contains(e) || (o.call(this, e), this.el.className = this.toString()) }, contains: function (e) { return -1 != this.el.className.indexOf(e) }, item: function (e) { return this[e] || null }, remove: function (e) { if (this.contains(e)) { for (var t = 0; t < this.length && this[t] != e; t++); r.call(this, t, 1), this.el.className = this.toString() } }, toString: function () { return a.call(this, " ") }, toggle: function (e) { return this.contains(e) ? this.remove(e) : this.add(e), this.contains(e) } }, window.DOMTokenList = d, e = Element.prototype, t = "classList", n = function () { return new d(this) }, Object.defineProperty ? Object.defineProperty(e, t, { get: n }) : e.__defineGetter__(t, n) } function d(e) { for (var t = (this.el = e).className.replace(/^\s+|\s+$/g, "").split(/\s+/), n = 0; n < t.length; n++)o.call(this, t[n]) } }(); function a(e) { var t, n, i, o; prefixesArray = e || ["fa"], prefixesSelectorString = "." + Array.prototype.join.call(e, ",."), t = document.querySelectorAll(prefixesSelectorString), Array.prototype.forEach.call(t, function (e) { n = e.getAttribute("title"), e.setAttribute("aria-hidden", "true"), i = !e.nextElementSibling || !e.nextElementSibling.classList.contains("sr-only"), n && i && ((o = document.createElement("span")).innerHTML = n, o.classList.add("sr-only"), e.parentNode.insertBefore(o, e.nextSibling)) }) } var d = function (e, t) { var n = document.createElement("link"); n.href = e, n.media = "all", n.rel = "stylesheet", t && t.detectingConflicts && t.detectionIgnoreAttr && n.setAttributeNode(document.createAttribute(t.detectionIgnoreAttr)), document.getElementsByTagName("head")[0].appendChild(n) }, c = function (e, t) { !function (e, t) { var n, i = t && t.before || void 0, o = t && t.media || void 0, r = window.document, a = r.createElement("link"); if (t && t.detectingConflicts && t.detectionIgnoreAttr && a.setAttributeNode(document.createAttribute(t.detectionIgnoreAttr)), i) n = i; else { var d = (r.body || r.getElementsByTagName("head")[0]).childNodes; n = d[d.length - 1] } var c = r.styleSheets; a.rel = "stylesheet", a.href = e, a.media = "only x", function e(t) { if (r.body) return t(); setTimeout(function () { e(t) }) }(function () { n.parentNode.insertBefore(a, i ? n : n.nextSibling) }); var s = function (e) { for (var t = a.href, n = c.length; n--;)if (c[n].href === t) return e(); setTimeout(function () { s(e) }) }; function l() { a.addEventListener && a.removeEventListener("load", l), a.media = o || "all" } a.addEventListener && a.addEventListener("load", l), (a.onloadcssdefined = s)(l) }(e, t) }, e = function (e, t, n) { var i = t && void 0 !== t.autoFetchSvg ? t.autoFetchSvg : void 0, o = t && void 0 !== t.async ? t.async : void 0, r = t && void 0 !== t.autoA11y ? t.autoA11y : void 0, a = document.createElement("script"), d = document.scripts[0]; a.src = e, void 0 !== r && a.setAttribute("data-auto-a11y", r ? "true" : "false"), i && (a.setAttributeNode(document.createAttribute("data-auto-fetch-svg")), a.setAttribute("data-fetch-svg-from", t.fetchSvgFrom)), o && a.setAttributeNode(document.createAttribute("defer")), n && n.detectingConflicts && n.detectionIgnoreAttr && a.setAttributeNode(document.createAttribute(n.detectionIgnoreAttr)), d.parentNode.appendChild(a) }; function s(e, t) { var n = t && t.addOn || "", i = t && t.baseFilename || e.license + n, o = t && t.minify ? ".min" : "", r = t && t.fileSuffix || e.method, a = t && t.subdir || e.method; return e.baseUrl + "/releases/" + ("latest" === e.version ? "latest" : "v".concat(e.version)) + "/" + a + "/" + i + o + "." + r } var t, n, i, o, l; try { if (window.FontAwesomeKitConfig) { var u, f = window.FontAwesomeKitConfig, m = { detectingConflicts: f.detectConflictsUntil && new Date <= new Date(f.detectConflictsUntil), detectionIgnoreAttr: "data-fa-detection-ignore", detectionTimeoutAttr: "data-fa-detection-timeout", detectionTimeout: null }; "js" === f.method && (o = m, l = { async: (i = f).asyncLoading.enabled, autoA11y: i.autoA11y.enabled }, "pro" === i.license && (l.autoFetchSvg = !0, l.fetchSvgFrom = i.baseUrl + "/releases/" + ("latest" === i.version ? "latest" : "v".concat(i.version)) + "/svgs"), i.v4shim.enabled && e(s(i, { addOn: "-v4-shims", minify: i.minify.enabled })), e(s(i, { minify: i.minify.enabled }), l, o)), "css" === f.method && function (e, t) { var n, i = a.bind(a, ["fa", "fab", "fas", "far", "fal", "fad"]); e.autoA11y.enabled && (r(i), n = i, "undefined" != typeof MutationObserver && new MutationObserver(n).observe(document, { childList: !0, subtree: !0 })), e.v4shim.enabled && (e.license, e.asyncLoading.enabled ? c(s(e, { addOn: "-v4-shims", minify: e.minify.enabled }), t) : d(s(e, { addOn: "-v4-shims", minify: e.minify.enabled }), t)); e.v4FontFaceShim.enabled && (e.asyncLoading.enabled ? c(s(e, { addOn: "-v4-font-face", minify: e.minify.enabled }), t) : d(s(e, { addOn: "-v4-font-face", minify: e.minify.enabled }), t)); var o = s(e, { minify: e.minify.enabled }); e.asyncLoading.enabled ? c(o, t) : d(o, t) }(f, m), m.detectingConflicts && ((u = document.currentScript.getAttribute(m.detectionTimeoutAttr)) && (m.detectionTimeout = u), document.currentScript.setAttributeNode(document.createAttribute(m.detectionIgnoreAttr)), t = f, n = m, r(function () { var e = document.createElement("script"); n && n.detectionIgnoreAttr && e.setAttributeNode(document.createAttribute(n.detectionIgnoreAttr)), n && n.detectionTimeoutAttr && n.detectionTimeout && e.setAttribute(n.detectionTimeoutAttr, n.detectionTimeout), e.src = s(t, { baseFilename: "conflict-detection", fileSuffix: "js", subdir: "js", minify: t.minify.enabled }), e.async = !0, document.body.appendChild(e) })) } } catch (e) { } }();</script>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        var socket = io.connect('http://127.0.0.1:5000/time');
+
+        socket.on('from time',function (msg1) {
+
+            console.log(msg1['counting'])
+            var timeData = msg1['counting']
+            {% for i in range(1,11) %}
+            document.getElementById("beddata1{{i}}").className='freeText1';
+            document.getElementById("beddata2{{i}}").className='freeText2';
+            sr1{{i}} = "<i class='fas fa-bed'></i>"+' Bed:'+ {{i}};
+           document.getElementById("beddata1{{i}}").innerHTML = sr1{{i}};
+
+           //CameraUnpluggedWarning
+
+           if (parseInt(timeData[{{i}}-1])<1000){
+          sr2{{i}} =  "<i class='fas fa-clock'></i>"+' Time:'+timeData[{{i}}-1] +"sec";
+            document.getElementById("beddata2{{i}}").innerHTML = sr2{{i}}
+            }
+            else{
+            sr2{{i}} =  "<i class='fas fa-clock'></i>"+' Camera unpluged';
+            document.getElementById("beddata2{{i}}").innerHTML = sr2{{i}}
+            }
+
+            {% endfor %}
+
+        })
+
+    })
+</script>
+<!--
+<script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+    var socket = io.connect('http://127.0.0.1:5000/test');
+
+    socket.on('from flask', function(msg) {
+        console.log("Received number: " + msg['flask']);
+        var data =msg['flask']
+        console.log(data)
+        //maintain the list
+        {% for i in range(1,11) %}
+        heartRate{{i}}=parseInt(data[{{i}}-1][0])
+        oxygenSaturation{{i}}=parseInt(data[{{i}}-1][1])
+        noDataDetected{{i}}=data[{{i}}-1][0].toString()
+
+        // Alert For data range
+
+        if(noDataDetected{{i}}== 'None'){
+            document.getElementById("alert{{i}}").className='box';
+            document.getElementById("beddata1{{i}}").className='text1';
+            document.getElementById("beddata2{{i}}").className='text2';
+            document.getElementById("beddata3{{i}}").className='noData';
+            // document.getElementById("alert{{i}}").className='box';
+           sr1{{i}} = 'Bed:'+ {{i}};
+           document.getElementById("beddata1{{i}}").innerHTML = sr1{{i}}
+           sr2{{i}} =  "No Data Detected"
+           document.getElementById("beddata2{{i}}").innerHTML = sr2{{i}}
+           sr3{{i}} =  data[{{i}}-1][1];
+           document.getElementById("beddata3{{i}}").innerHTML = sr3{{i}}
+        }
+        else if ((heartRate{{i}}<20) || (oxygenSaturation{{i}}<20)){
+        //     console.log(heartRate{{i}},oxygenSaturation{{i}})
+            document.getElementById("alert{{i}}").className='quadrat';
+            document.getElementById("beddata1{{i}}").className='text1';
+            document.getElementById("beddata2{{i}}").className='text2';
+            document.getElementById("beddata3{{i}}").className='text3';
+            sr1{{i}} = 'Bed:'+ {{i}};
+            document.getElementById("beddata1{{i}}").innerHTML = sr1{{i}}
+            sr2{{i}} =  'HR:'+data[{{i}}-1][0];
+            document.getElementById("beddata2{{i}}").innerHTML = sr2{{i}}
+            sr3{{i}} =  'Spo2:'+data[{{i}}-1][1];
+            document.getElementById("beddata3{{i}}").innerHTML = sr3{{i}}
+        }
+        else{
+           document.getElementById("alert{{i}}").className='box';
+           document.getElementById("beddata1{{i}}").className='text1';
+           document.getElementById("beddata2{{i}}").className='text2';
+           document.getElementById("beddata3{{i}}").className='text3';
+           sr1{{i}} = 'Bed:'+ {{i}};
+           document.getElementById("beddata1{{i}}").innerHTML = sr1{{i}}
+           sr2{{i}} =  'HR:'+data[{{i}}-1][0];
+           document.getElementById("beddata2{{i}}").innerHTML = sr2{{i}}
+           sr3{{i}} =  'Spo2:'+data[{{i}}-1][1];
+           document.getElementById("beddata3{{i}}").innerHTML = sr3{{i}}
+        }
+
+        {% endfor %}
+
+
+    });
+
+});
+</script>
+-->
+<script>
+    app.use(function (req,res,next){
+        res.header("Access-Control-Allow-Origin","*");
+        res.header("Access-Control-Allow-Origin","Origin,X-Requested-With,Conten-Type,Accept");
+        next();
+    });
+
+
+    </script>
+
+{% endblock %}
