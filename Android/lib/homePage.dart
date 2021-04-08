@@ -49,9 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _launchDashboardURL() async {
-//     const url = 'http://192.168.0.120:5000/heartRate';
-//    const url = 'http://10.10.10.85:5000/heartRate';
-    const url = "http://genhicu.infinityfreeapp.com";
+    const url = "********";
     if (await canLaunch(url)) {
       await launch(
         url,
@@ -65,9 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _launchHeartURL() async {
-//     const url = 'http://192.168.0.120:5000/heartRate';
-    const url = 'http://10.10.10.85:5000/heartRate';
-    // const url = "http://www.google.com";
+    const url = '***';
     if (await canLaunch(url)) {
       await launch(url,
           forceWebView: true, forceSafariVC: true, enableJavaScript: true);
@@ -78,8 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _launchOxygenURL() async {
-    const url = 'http://192.168.0.120:5000/oxygenSaturation';
-//    const url = 'http://10.10.10.85:5000/oxygenSaturation';
+    const url = '*******';
     if (await canLaunch(url)) {
       await launch(url, forceWebView: true, enableJavaScript: true);
     } else {
