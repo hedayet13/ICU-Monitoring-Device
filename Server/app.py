@@ -142,7 +142,7 @@ def chartData():
     conn = sqlite3.connect('posts.db')
     c = conn.cursor()
     # data =c.execute('SELECT * FROM (SELECT * FROM monitor_data ORDER BY date_posted DESC LIMIT 100) ORDER BY date_posted ASC ').fetchall()
-    ####### newly added #######
+    ####### newly added  27/06/21 #######
     Data =[]
     for i in (1,11):
         bedHeartRate = []
@@ -283,7 +283,7 @@ def greet():
 
 def provideDataFromDatabase():
     while True:
-        ###### newly added ######
+        ###### newly added 27/06/21 ######
         Data=[]
         for i in range(0,10):
             img = MonitorData.query.filter(db.or_(MonitorData.monitor_name == 'res{}.jpg'.format(i))).order_by(
@@ -335,7 +335,7 @@ def provideDataFromDatabase():
 
 def timeContent():
     while True:
-        ##### newly Added ######
+        ##### newly Added 27/06/21 ######
         mainTime = time.time()
         timeData = []
         for i in range(0,10):
