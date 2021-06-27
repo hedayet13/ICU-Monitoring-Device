@@ -142,6 +142,23 @@ def chartData():
     conn = sqlite3.connect('posts.db')
     c = conn.cursor()
     # data =c.execute('SELECT * FROM (SELECT * FROM monitor_data ORDER BY date_posted DESC LIMIT 100) ORDER BY date_posted ASC ').fetchall()
+    ####### newly added #######
+    Data =[]
+    for i in (1,11):
+        bedHeartRate = []
+        bedDatePosted = []
+        bedOxygenSaturation = []
+        bed = c.execute(
+        'SELECT * FROM (SELECT * FROM monitor_data WHERE monitor_name LIKE "%res{}%" ORDER BY date_posted DESC LIMIT 100) ORDER BY date_posted ASC '.format(i)).fetchall()
+        for row in bed:
+            bedHeartRate.append(row[2])
+            bedOxygenSaturation.append(row[3])
+            bedDatePosted.append(row[4])
+            realData = (bedHeartRate,bedOxygenSaturation,bedDatePosted)
+        Data.append(realData)
+        print(i)
+    ###########################
+    '''
     bed1 = c.execute(
         'SELECT * FROM (SELECT * FROM monitor_data WHERE monitor_name LIKE "%res0%" ORDER BY date_posted DESC LIMIT 100) ORDER BY date_posted ASC ').fetchall()
     bed2 = c.execute(
@@ -256,6 +273,7 @@ def chartData():
             (bed8HeartRate, bed8OxygenSaturation, bed8DatePosted),
             (bed9HeartRate, bed9OxygenSaturation, bed9DatePosted),
             (bed10HeartRate, bed10OxygenSaturation, bed10DatePosted)]
+    '''
 
     return jsonify({'data': Data})
     # return render_template('heartRate.html',heart_rate=heart_rate,label=label)
@@ -265,6 +283,14 @@ def greet():
 
 def provideDataFromDatabase():
     while True:
+        ###### newly added ######
+        Data=[]
+        for i in range(0,10):
+            img = MonitorData.query.filter(db.or_(MonitorData.monitor_name == 'res{}.jpg'.format(i))).order_by(
+            MonitorData.id.desc()).first()
+            Data.append((img.heart_rate,img.oxygen_saturation))
+        #########################
+        '''
         # result = MonitorData.query.order_by(MonitorData.date_posted.desc()).limit(10).all()
         img1 = MonitorData.query.filter(db.or_(MonitorData.monitor_name == 'res0.jpg')).order_by(
             MonitorData.id.desc()).first()
@@ -300,12 +326,27 @@ def provideDataFromDatabase():
         # for i in result:
         #     Data.append(((i.heart_rate), (i.oxygen_saturation)))
         # Data.reverse()
+
+
+        '''
+
         socketio.emit('from flask', {'flask': Data}, namespace='/test')
         socketio.sleep(2)
 
 def timeContent():
     while True:
+        ##### newly Added ######
         mainTime = time.time()
+        timeData = []
+        for i in range(0,10):
+            imgTime = int(mainTime-os.path.getmtime("C:\Its mine\Workspace\Flask\Demo2\static\imagesFixAngle/res{}.jpg".format(i)))
+            # print(imgTime)
+            timeData.append(imgTime)
+            # print(timeData)
+        print(timeData)
+        ########################
+
+        '''
         img1time = int(mainTime-os.path.getmtime("C:\Its mine\Workspace\Flask\Demo2\static\imagesFixAngle/res0.jpg"))
         img2time = int(mainTime-os.path.getmtime("C:\Its mine\Workspace\Flask\Demo2\static\imagesFixAngle/res1.jpg"))
         img3time = int(mainTime-os.path.getmtime("C:\Its mine\Workspace\Flask\Demo2\static\imagesFixAngle/res2.jpg"))
@@ -318,6 +359,8 @@ def timeContent():
         img10time = int(mainTime-os.path.getmtime("C:\Its mine\Workspace\Flask\Demo2\static\imagesFixAngle/res9.jpg"))
         timeData=[img1time,img2time,img3time,img4time,img5time,img6time,img7time,img8time,img9time,img10time]
         print(timeData)
+        '''
+
         socketio.emit('from time',{'counting': timeData},namespace='/time')
         socketio.sleep(1)
 
